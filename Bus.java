@@ -18,14 +18,14 @@ public class Bus implements Runnable{
 		
 		System.out.println("Le bus "+ num_bus +" envoie ses infos au Serveur.");
 		
-		Socket socket = new Socket("localhost", 6000);
 		
+		Socket socket = new Socket("localhost", 6000);
 		PrintWriter sortie = new PrintWriter(socket.getOutputStream(),true);
 		BufferedReader entree = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		
 		
-		sortie.println("BUS;"+num_bus+";"+num_lign); //Envoi du message
-		String rep=entree.readLine();
+		sortie.println("BUS;"+num_bus+";"+num_ligne); //Envoi du message
+		String rep=entree.readLine();//Attente de la réponse
 		
 		if(rep.equals("OKBUS")){
 			System.out.println("[OK] Infos reçues par le serveur");
@@ -34,7 +34,9 @@ public class Bus implements Runnable{
 	
 	
 	}
-	
+	public void surLigne(int num_ligne){
+		this.num_ligne=num_ligne;
+	}
 	
 	public void run(){
 		while(this.en_marche==true){

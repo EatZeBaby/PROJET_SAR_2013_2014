@@ -7,9 +7,10 @@ import java.util.ArrayList;
 
 public class GestiBus{
 	
-	private static int NB_Bus=1;
+	private static int NB_Bus=3;
 	private static int NB_Lignes=3;
-	private static int NB_Controleurs=2;
+	private static int NB_Controleurs=1;
+	
 	private static ArrayList<Bus> TousLesBus  = new ArrayList<Bus>();
 	private static ArrayList<Ligne> ToutesLesLignes  = new ArrayList<Ligne>();
 	private static ArrayList<Controleur> TousLesControleurs  = new ArrayList<Controleur>();
@@ -91,6 +92,17 @@ public class GestiBus{
 	
 	
 	}
+	public static void affecterBus(){
+		int cpt=0;
+		
+		for(int i=0; i<NB_Bus;i++){
+			
+			cpt=i%NB_Lignes;
+			TousLesBus.get(i).surLigne(cpt);
+		}
+	
+	}
+	
 	
 	public static void lancerBus(){
 		for(int i=0;i<NB_Bus;i++){
@@ -116,6 +128,7 @@ public class GestiBus{
 		initBus();
 		initLigne();
 		initControleur();
+		affecterBus();
 		lancerBus();
 		try
 			 {
