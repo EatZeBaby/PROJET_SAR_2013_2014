@@ -15,7 +15,14 @@ public class ThreadClient extends Thread{
 		this.port=port;
 	}
 	
-	private void envoiVersControleur(String[] data){
+	private void envoiVersControleur(String[] data)throws Exception{
+		
+		Socket socket = new Socket("localhost", 6002);
+		
+		PrintWriter sortie = new PrintWriter(socket.getOutputStream(),true);
+		BufferedReader entree = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		sortie.println("Salut");
+		
 	
 	
 	
@@ -47,9 +54,10 @@ public class ThreadClient extends Thread{
 			//if (str.equals("INFOS")){
 			if(data[0].equals("BUS")){
 				
-				System.out.println("Communication établie avec le bus N°"+ num_bus+" de la ligne "+ num_ligne);
-				
-				envoiVersControleur(data);
+				System.out.println("Communication établie avec le bus N°"+ data[1]+" de la ligne "+ data[2]);
+				try{
+					envoiVersControleur(data);
+				}catch(Exception e){}
 				
 				sortie.println("OK");
 					

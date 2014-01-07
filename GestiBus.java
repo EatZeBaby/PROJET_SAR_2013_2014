@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class GestiBus{
 	
-	private static int NB_Bus=3;
-	private static int NB_Lignes=3;
+	private static int NB_Bus=1;
+	private static int NB_Lignes=1;
 	private static int NB_Controleurs=1;
 	
 	private static ArrayList<Bus> TousLesBus  = new ArrayList<Bus>();
@@ -112,6 +112,17 @@ public class GestiBus{
 		
 	
 	}
+	
+	
+	public static void lancerControleurs(){
+		for(int i=0;i<NB_Controleurs;i++){
+			TousLesControleurs.get(i).proc.start();
+			
+		}
+	
+	}
+
+	
 	public static void terminerBus(){
 		System.out.println("Fin de journée les cocos.");
 		
@@ -129,6 +140,8 @@ public class GestiBus{
 		initLigne();
 		initControleur();
 		affecterBus();
+		
+		lancerControleurs();
 		lancerBus();
 		try
 			 {
