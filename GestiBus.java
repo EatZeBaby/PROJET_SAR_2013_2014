@@ -9,8 +9,10 @@ public class GestiBus{
 	
 	private static int NB_Bus=1;
 	private static int NB_Lignes=3;
+	private static int NB_Controleurs=2;
 	private static ArrayList<Bus> TousLesBus  = new ArrayList<Bus>();
 	private static ArrayList<Ligne> ToutesLesLignes  = new ArrayList<Ligne>();
+	private static ArrayList<Controleur> TousLesControleurs  = new ArrayList<Controleur>();
 	
 	public static void ecranAccueil(){
 		System.out.println(" o========================================o");
@@ -19,6 +21,23 @@ public class GestiBus{
 		System.out.println("|| | (_ | _|\\__ \\ | |  | || _ \\ |_| \\__ \\ ||");
 		System.out.println("||  \\___|___|___/ |_| |___|___/\\___/|___/ ||");
 		System.out.println(" o========================================o");	
+	}
+	
+	
+
+	public static void initControleur(){
+		
+		int i;
+		for(i=0;i<NB_Controleurs;i++){
+			TousLesControleurs.add(new Controleur(i));
+		} 
+		if(TousLesControleurs.size()==NB_Controleurs){
+			System.out.println("[OK] Création des "+ NB_Controleurs +" contrôleurs.");
+		}else{
+			System.out.println("[Erreur] Création des "+ NB_Controleurs +" contrôleurs.");
+		}
+		
+	
 	}
 	
 	
@@ -41,7 +60,8 @@ public class GestiBus{
 		int i;
 		for(i=0;i<NB_Lignes;i++){
 			ToutesLesLignes.add(new Ligne(i+1));
-			ToutesLesLignes.get(i).afficher_ligne();
+			//DEBUG 
+			/*ToutesLesLignes.get(i).afficher_ligne();*/
 		} 
 		if(ToutesLesLignes.size()==NB_Lignes){
 			System.out.println("[OK] Création des "+NB_Lignes+" lignes.");
@@ -62,7 +82,7 @@ public class GestiBus{
 		
 		
 		sortie.println("lancé?"); //Envoi du message
-		String rep=entree.readLine();
+		String rep=entree.readLine();//Attente d'une réponse
 		
 		if(rep.equals("OK")){
 			System.out.println("[OK] Serveur Lancé");
@@ -95,6 +115,7 @@ public class GestiBus{
 		verifServeur();
 		initBus();
 		initLigne();
+		initControleur();
 		lancerBus();
 		try
 			 {

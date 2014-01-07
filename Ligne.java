@@ -9,11 +9,15 @@ public class Ligne{
 
 	private int numero;
 	private ArrayList<String> ListeDesArrets  = new ArrayList<String>();
+	
+	//Tableau d'affectation des lignes
+	private static ArrayList<Integer> Affectation=new ArrayList<Integer>();
 
 
 
 	public Ligne(int i){
-		System.out.println("Création de la ligne N°"+i);
+		//DEBUG
+		/*System.out.println("Création de la ligne N°"+i);//*/
 
 		
 		if(i==1){

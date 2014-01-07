@@ -12,6 +12,7 @@ public class Bus implements Runnable{
 	private int vitesse;
 	private int position;
 	private int num_bus;
+	private int num_ligne;
 	
 	private void envoyerInfos() throws Exception{
 		
@@ -23,7 +24,7 @@ public class Bus implements Runnable{
 		BufferedReader entree = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		
 		
-		sortie.println("BUS;"+num_bus); //Envoi du message
+		sortie.println("BUS;"+num_bus+";"+num_lign); //Envoi du message
 		String rep=entree.readLine();
 		
 		if(rep.equals("OKBUS")){
@@ -41,7 +42,8 @@ public class Bus implements Runnable{
 			try
 			 {
 				Thread.sleep(3000);
-				System.out.println("Bus " + num_bus + " en Marche");
+				//DEBUG
+				/*System.out.println("Bus " + num_bus + " en Marche");//*/
 				envoyerInfos();
 			 }
 			 
@@ -61,7 +63,7 @@ public class Bus implements Runnable{
 	
 	public Bus(int num_bus){
 	
-		this.num_bus=num_bus;
+		this.num_bus=num_bus+1;
 		en_marche=true;
 	
 	}

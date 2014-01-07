@@ -8,6 +8,9 @@ public class ThreadClient extends Thread{
 	private String[] data=null;
 	private Socket port;
 	private String delims = "[;]";
+	
+	
+	
 	public ThreadClient(Socket port){
 		this.port=port;
 	}
@@ -36,10 +39,9 @@ public class ThreadClient extends Thread{
 			}
 			
 			//SUR RECEPTION DE :
-			
 			//if (str.equals("INFOS")){
 			if(data[0].equals("BUS")){
-				System.out.println("Communication établie avec le bus N°"+data[1]);
+				System.out.println("Communication établie avec le bus N°"+data[1]"de la ligne"+data[2]);
 				
 				sortie.println("OK");
 					
@@ -47,7 +49,8 @@ public class ThreadClient extends Thread{
 			}
 			
 		
-		System.out.println("Fermeture de la connexion");
+		//DEBUG//
+		/*System.out.println("Fermeture de la connexion");//*/
 		entree.close();
 		sortie.close();
 		
