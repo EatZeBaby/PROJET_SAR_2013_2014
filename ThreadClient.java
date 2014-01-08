@@ -28,35 +28,37 @@ public class ThreadClient extends Thread {
 		this.port=port;
 	}
 	
-	private void envoiVersControleur(String str,String num_ligne)throws Exception{
+	private String envoiVersControleur(String str,String num_ligne)throws Exception{
 			
 			int ligne = Integer.parseInt(num_ligne)+1; 
 			System.out.println("Debug : "+ ligne);
-		//RMI//
+			//RMI//	
 			try {
 				    Registry registry = LocateRegistry.getRegistry(null);
 				    Choix stub = (Choix) registry.lookup("Choix");
 				    int response = stub.getControleur(ligne);
-				    System.out.println("Il faut envoyer au controleur N°" + response);
+				    System.out.println("Il faut envoyer au controleur N°" + response);	
+					//RMI FIN//*/
+					
+					//Contacter le controleur retournée par l'appel à getControleur
+					response=6001+response;
+					Socket socket = new Socket("localhost", response);
+					PrintWriter sortie = new PrintWriter(socket.getOutputStream(),true);
+					BufferedReader entree = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+					
+					
+					//Envoi du message au controleur
+					sortie.println(str);
+					
+					//Attente de la réponse du controleur
+					str=entree.readLine(); 
+					//System.out.println("Sur serveur" + str);
+	
 				} catch (Exception e) {
 				    System.err.println("Client exception: " + e.toString());
 				    e.printStackTrace();
 				}
-	    
-		
-		
-		//RMI FIN//*/
-		
-				
-		Socket socket = new Socket("localhost", 6001);
-		
-		PrintWriter sortie = new PrintWriter(socket.getOutputStream(),true);
-		BufferedReader entree = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		sortie.println(str);
-		
-	
-	
-	
+			return str;	
 	}
 	
 	public void run(){	
@@ -87,13 +89,13 @@ public class ThreadClient extends Thread {
 				
 				System.out.println("Communication établie avec le bus N°"+ data[1]+" de la ligne "+ data[2]);
 				try{
-					System.out.println("Transfert des données reçues au contrôleur");
-					envoiVersControleur(str,data[2]);
-				}catch(Exception e){}
+					//System.out.println("Transfert des données reçues au contrôleur");
+					String reponse_controleur= envoiVersControleur(str,data[2]);
 				
-				sortie.println("OK");
-					
-
+				
+				//sortie.println("OKBUS");
+					sortie.println(reponse_controleur);
+					}catch(Exception e){}
 			}
 			
 		
