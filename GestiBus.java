@@ -16,7 +16,7 @@ public class GestiBus{
 	public static final String CYAN = "\u001B[36m";
 	public static final String WHITE = "\u001B[37m";
 
-	private static int NB_Bus=1;
+	private static int NB_Bus=3;
 	private static int NB_Lignes=21;
 	private static int NB_Controleurs=7;
 	
