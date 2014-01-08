@@ -1,5 +1,4 @@
 //Projet SAR 2013-2014
-
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class Controleur implements Runnable{
 	private ServerSocket s;
 	private String delims = "[;]";
 	private ArrayList<Integer> ListeDeslignesACharge  = new ArrayList<Integer>();
-	private String[] ListeDesNoms  = {"Michel","Jean","Joss","Wario","Luigi"};
+	private String[] ListeDesNoms  = {"Michel","Jean","Joss","Wario","Luigi","Henri","Jeanine","Paulette","Jules","Axel","Guillaume","Thibault"};
 	
 	
 	public Controleur(int num,int port)throws IOException{

@@ -17,8 +17,8 @@ public class GestiBus{
 	public static final String WHITE = "\u001B[37m";
 
 	private static int NB_Bus=1;
-	private static int NB_Lignes=1;
-	private static int NB_Controleurs=1;
+	private static int NB_Lignes=21;
+	private static int NB_Controleurs=7;
 	
 	private static int port_serveur=6000;
 	
@@ -165,7 +165,13 @@ public class GestiBus{
 		initBus();
 		initLigne();
 		initControleur();
+		
+		Database database=new Database(NB_Lignes,NB_Controleurs);
+		
 		affecterBus();
+			
+			
+			
 			
 		lancerControleurs();
 		lancerBus();

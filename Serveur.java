@@ -1,7 +1,8 @@
 import java.net.*;
 import java.io.*;
 
-public class Serveur{
+
+public class Serveur {
 	
 public static final String RESET = "\u001B[0m";
 public static final String BLACK = "\u001B[30m";
