@@ -13,6 +13,11 @@ public class Bus implements Runnable{
 	private int position;
 	private int num_bus;
 	private int num_ligne;
+	private ServerSocket s;
+	private String str="";
+	private Socket soc;
+	private String[] data=null;
+	private String delims = "[;]";
 	
 	private void envoyerInfos() throws Exception{
 		
@@ -27,9 +32,16 @@ public class Bus implements Runnable{
 		sortie.println("BUS;"+num_bus+";"+num_ligne); //Envoi du message
 		String rep=entree.readLine();//Attente de la réponse
 		
-		if(rep.equals("OKBUS")){
+		//TO EDIT RECUPERER LA REPONSE DU SERVEUR CONTENANT LA DECISION DU CONTROLEUR
+		data=rep.split(delims);
+		
+		if(data[0].equals("OKBUS")){
 			System.out.println("[OK] Infos reçues par le serveur");
 		}
+		if(data[0].equals("NIKTAMER")){
+			System.out.println("Bus à reçu la réponse du controleur");
+		}
+		
 		//System.out.println("Le client a reçu : " + rep);
 	
 	
@@ -39,34 +51,46 @@ public class Bus implements Runnable{
 	}
 	
 	public void run(){
-		while(this.en_marche==true){
-		
-			try
-			 {
-				Thread.sleep(3000);
-				//DEBUG
-				/*System.out.println("Bus " + num_bus + " en Marche");//*/
-				envoyerInfos();
-			 }
-			 
-			catch
-			 (Exception e) {
+		try{
 			
-				break;
-			 }
+		/*	BufferedReader entree = new BufferedReader(new InputStreamReader( soc.getInputStream()));
+			PrintWriter sortie = new PrintWriter(soc.getOutputStream(),true);//*/
+					
+		while(this.en_marche==true){	
+	
+				try
+				 {
+					Thread.sleep(3000);
+					//DEBUG
+					/*System.out.println("Bus " + num_bus + " en Marche");//*/
+					envoyerInfos();
+					//String str=entree.readLine(); //Attente d'un message
+					//System.out.println("Message reçu par le bus : " + str);
+				 }
+				 
+				catch
+				 (Exception e) {
+				
+					break;
+				 }
 		
+		}}
+		catch(Exception e) {
+				
+					
 		}
-		
 		System.out.println("Bus " + num_bus + " arrêté.");
 
+	
 	}
 	
 	
-	
-	public Bus(int num_bus){
+	public Bus(int num_bus) throws Exception{
 	
 		this.num_bus=num_bus+1;
 		en_marche=true;
+		//s = new ServerSocket(6100+num_bus);//BUS SOCKET
+		//soc=s.accept();
 	
 	}
 	

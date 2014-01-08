@@ -6,15 +6,6 @@ import java.util.ArrayList;
 
 
 public class GestiBus{
-	public static final String RESET = "\u001B[0m";
-	public static final String BLACK = "\u001B[30m";
-	public static final String RED = "\u001B[31m";
-	public static final String GREEN = "\u001B[32m";
-	public static final String YELLOW = "\u001B[33m";
-	public static final String BLUE = "\u001B[34m";
-	public static final String PURPLE = "\u001B[35m";
-	public static final String CYAN = "\u001B[36m";
-	public static final String WHITE = "\u001B[37m";
 
 	private static int NB_Bus=3;
 	private static int NB_Lignes=21;
@@ -28,13 +19,13 @@ public class GestiBus{
 	
 	public static void ecranAccueil(){
 		clearConsole();
-		System.out.println(RED + " o========================================o");
-		System.out.println("||"+BLUE+"   ___ ___ ___ _____ ___ ___ _   _ ___  "+RED+"||");
-		System.out.println("||"+BLUE+"  / __| __/ __|_   _|_ _| _ ) | | / __| "+RED+"||");
-		System.out.println("||"+BLUE+" | (_ | _|\\__ \\ | |  | || _ \\ |_| \\__ \\ "+RED+"||");
-		System.out.println("||"+BLUE+"  \\___|___|___/ |_| |___|___/\\___/|___/ "+RED+"||");
-		System.out.println("||"+BLUE+"                                        "  +RED+"||");
-		System.out.println(" o========================================o"+RESET);	
+		System.out.println(Couleur.RED + " o========================================o");
+		System.out.println("||"+Couleur.BLUE+"   ___ ___ ___ _____ ___ ___ _   _ ___  "+Couleur.RED+"||");
+		System.out.println("||"+Couleur.BLUE+"  / __| __/ __|_   _|_ _| _ ) | | / __| "+Couleur.RED+"||");
+		System.out.println("||"+Couleur.BLUE+" | (_ | _|\\__ \\ | |  | || _ \\ |_| \\__ \\ "+Couleur.RED+"||");
+		System.out.println("||"+Couleur.BLUE+"  \\___|___|___/ |_| |___|___/\\___/|___/ "+Couleur.RED+"||");
+		System.out.println("||"+Couleur.BLUE+"                                        "  +Couleur.RED+"||");
+		System.out.println(" o========================================o"+Couleur.RESET);
 	}
 	
 	
@@ -46,7 +37,7 @@ public class GestiBus{
 			TousLesControleurs.add(new Controleur(i,6001+i));
 		} 
 		if(TousLesControleurs.size()==NB_Controleurs){
-			System.out.println("["+GREEN+"OK"+RESET+"] Création des "+ NB_Controleurs +" contrôleurs.");
+			System.out.println("["+Couleur.GREEN+"OK"+Couleur.RESET+"] Création des "+ NB_Controleurs +" contrôleurs.");
 		}else{
 			System.out.println("[Erreur] Création des "+ NB_Controleurs +" contrôleurs.");
 		}
@@ -55,14 +46,14 @@ public class GestiBus{
 	}
 	
 	
-	public static void initBus(){
+	public static void initBus()throws Exception{
 		
 		int i;
 		for(i=0;i<NB_Bus;i++){
 			TousLesBus.add(new Bus(i));
 		} 
 		if(TousLesBus.size()==NB_Bus){
-			System.out.println("["+GREEN+"OK"+RESET+"] Création des "+NB_Bus+" bus.");
+			System.out.println("["+Couleur.GREEN+"OK"+Couleur.RESET+"] Création des "+NB_Bus+" bus.");
 		}else{
 			System.out.println("[Erreur] Création des "+NB_Bus+" bus.");
 		}
@@ -78,7 +69,7 @@ public class GestiBus{
 			/*ToutesLesLignes.get(i).afficher_ligne();*/
 		} 
 				if(ToutesLesLignes.size()==NB_Lignes){
-			System.out.println("["+GREEN+"OK"+RESET+"] Création des "+NB_Lignes+" lignes.");
+			System.out.println("["+Couleur.GREEN+"OK"+Couleur.RESET+"] Création des "+NB_Lignes+" lignes.");
 		}else{
 			System.out.println("[Erreur] Création des "+NB_Lignes+" lignes.");
 		}
@@ -100,7 +91,7 @@ public class GestiBus{
 		String rep=entree.readLine();//Attente d'une réponse
 		
 		if(rep.equals("OK")){
-			System.out.println("["+GREEN+"OK"+RESET+"] Connexion au serveur réussie sur le port "+ port_serveur+".");
+			System.out.println("["+Couleur.GREEN+"OK"+Couleur.RESET+"] Connexion au serveur réussie sur le port "+ port_serveur+".");
 			
 		}
 		//System.out.println("Le client a reçu : " + rep);

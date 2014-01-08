@@ -55,6 +55,7 @@ public class Controleur implements Runnable{
 				
 				System.out.println("Message reçu par contrôleur : " + str);
 				data=str.split(delims);
+				sortie.println("NIKTAMER");
 				
 				
 			}
