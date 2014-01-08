@@ -73,7 +73,7 @@ public class Bus implements Runnable{
 	public void fin_de_journee(){
 		
 		this.en_marche=false;
-	
+			
 	}
 	
 	

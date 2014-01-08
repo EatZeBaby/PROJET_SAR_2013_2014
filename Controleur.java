@@ -12,18 +12,19 @@ public class Controleur implements Runnable{
 	private String str="";
 	private int num;
 	private String[] data=null;
-	
+	private Socket port;
+	private boolean stopThread = false;
+	private ServerSocket s;
 	private String delims = "[;]";
 	private ArrayList<Integer> ListeDeslignesACharge  = new ArrayList<Integer>();
 	private String[] ListeDesNoms  = {"Michel","Jean","Joss","Wario","Luigi"};
 	
 	
-	public Controleur(int num){
+	public Controleur(int num,int port)throws IOException{
 		this.num=num;
 		this.nom=ListeDesNoms[num];
-		
-		
-		
+		this.s = new ServerSocket(port);
+				
 		//Debug
 		/*System.out.println(this.nom);//*/
 		
@@ -31,24 +32,32 @@ public class Controleur implements Runnable{
 	
 	
 	public void run(){
+		boolean fin = false;
 		
 		try{
-			ServerSocket s= new ServerSocket(6002);
-			Socket soc=s.accept();
 			
-			
-			BufferedReader entree = new BufferedReader(new InputStreamReader( soc.getInputStream()));
-			PrintWriter sortie = new PrintWriter(soc.getOutputStream(),true);	
-			while(true){
+			while(!fin){
+				Socket soc=s.accept();
 				
-		
+				
+				BufferedReader entree = new BufferedReader(new InputStreamReader( soc.getInputStream()));
+				PrintWriter sortie = new PrintWriter(soc.getOutputStream(),true);	
 			
-			//System.out.println("Bienvenue sur le Serveur " +this.getName());	
-			str=entree.readLine(); //Attente d'un message
-			System.out.println("Debug");
+				
+				synchronized(this) {
+                                Thread.yield();
+ 
+                                // lecture du boolean 
+                                fin = this.stopThread;
+                        } 
 			
-			System.out.println("Message reçu par contrôleur : " + str);
-			data=str.split(delims);
+				//System.out.println("Bienvenue sur le Serveur " +this.getName());	
+				str=entree.readLine(); //Attente d'un message
+				
+				System.out.println("Message reçu par contrôleur : " + str);
+				data=str.split(delims);
+				
+				
 			}
 			
 			
@@ -56,6 +65,9 @@ public class Controleur implements Runnable{
 	
 	
 	}
+	public synchronized void fin_de_journee() {
+        this.stopThread = true;
+} 
 		
 	
 

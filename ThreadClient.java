@@ -17,7 +17,7 @@ public class ThreadClient extends Thread{
 	
 	private void envoiVersControleur(String data)throws Exception{
 		
-		Socket socket = new Socket("localhost", 6002);
+		Socket socket = new Socket("localhost", 6001);
 		
 		PrintWriter sortie = new PrintWriter(socket.getOutputStream(),true);
 		BufferedReader entree = new BufferedReader(new InputStreamReader(socket.getInputStream()));
