@@ -8,6 +8,7 @@ public class Controleur implements Runnable{
 	
 	public Thread proc = new Thread(this); //Creation du thread
 	private String nom;
+	private String decision;
 	private String str="";
 	private int num;
 	private String[] data=null;
@@ -17,6 +18,7 @@ public class Controleur implements Runnable{
 	private String delims = "[;]";
 	private ArrayList<Integer> ListeDeslignesACharge  = new ArrayList<Integer>();
 	private String[] ListeDesNoms  = {"Michel","Jean","Joss","Wario","Luigi","Henri","Jeanine","Paulette","Jules","Axel","Guillaume","Thibault"};
+	
 	
 	
 	public Controleur(int num,int port)throws IOException{
@@ -55,7 +57,21 @@ public class Controleur implements Runnable{
 				
 				System.out.println("Message reçu par contrôleur : " + str);
 				data=str.split(delims);
-				sortie.println("NIKTAMER");
+				
+				
+			/*  data[0] : BUS
+				data[1]	: num_bus
+				data[2] : num_ligne
+				data[3] : vitesse
+				data[4] : position */
+				
+				
+				//Traitement des infos
+				if (data[3]== "30")
+					decision=decision+"Nouvelle_vitesse";
+				//etc...
+
+				sortie.println("CTRL;"+decision);
 				
 				
 			}

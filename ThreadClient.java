@@ -30,8 +30,8 @@ public class ThreadClient extends Thread {
 	
 	private String envoiVersControleur(String str,String num_ligne)throws Exception{
 			
-			int ligne = Integer.parseInt(num_ligne)+1; 
-			System.out.println("Debug : "+ ligne);
+			int ligne = Integer.parseInt(num_ligne); 
+			//System.out.println("Debug : "+ ligne);
 			//RMI//	
 			try {
 				    Registry registry = LocateRegistry.getRegistry(null);

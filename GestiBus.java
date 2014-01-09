@@ -7,15 +7,24 @@ import java.util.ArrayList;
 
 public class GestiBus{
 
-	private static int NB_Bus=3;
-	private static int NB_Lignes=21;
-	private static int NB_Controleurs=7;
+	private static int NB_Bus=1;
+	private static int NB_Lignes=1;
+	private static int NB_Controleurs=1;
 	
 	private static int port_serveur=6000;
 	
 	private static ArrayList<Bus> TousLesBus  = new ArrayList<Bus>();
 	private static ArrayList<Ligne> ToutesLesLignes  = new ArrayList<Ligne>();
 	private static ArrayList<Controleur> TousLesControleurs  = new ArrayList<Controleur>();
+	
+	
+	public static int get_nb_Lignes(){
+		return NB_Lignes;
+	}
+	
+	public static int get_nb_Controleurs(){
+		return NB_Controleurs;
+	}
 	
 	public static void ecranAccueil(){
 		clearConsole();
@@ -129,23 +138,23 @@ public class GestiBus{
 	}
 	public static void terminerControleurs(){
 		
-		System.out.println("Fin de journée les gars.");
+		//System.out.println("Fin de journée les gars.");
 		for(int i=0;i<NB_Bus;i++){
 			TousLesControleurs.get(i).fin_de_journee();
 			
 		}
-		System.out.println("Fin Controleurs.");
+		//System.out.println("Fin Controleurs.");
 		
 	}
 	
 	public static void terminerBus(){
 		
-		System.out.println("Fin de journée pour vous les bus.");
+		//System.out.println("Fin de journée pour vous les bus.");
 		for(int i=0;i<NB_Bus;i++){
 			TousLesBus.get(i).fin_de_journee();
 			
 		}
-		System.out.println("Fin Bus.");
+		//System.out.println("Fin Bus.");
 		
 	}
 	

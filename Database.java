@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class Database implements Choix {
 	
 	
-	private static int NB_Lignes=21;
-	private static int NB_Controleurs=7;
+	private static int NB_Lignes;
+	private static int NB_Controleurs;
 	
 	private static ArrayList<Integer> Repartition  = new ArrayList<Integer>();
 	
@@ -48,6 +48,8 @@ public class Database implements Choix {
    
 	
     public static void main(String args[]) {
+    	NB_Lignes=GestiBus.get_nb_Lignes();
+		NB_Controleurs=GestiBus.get_nb_Controleurs();
 	
 	try {
 	    Database obj = new Database(NB_Lignes,NB_Controleurs);

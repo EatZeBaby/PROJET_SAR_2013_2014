@@ -18,7 +18,9 @@ public class Bus implements Runnable{
 	private Socket soc;
 	private String[] data=null;
 	private String delims = "[;]";
-	
+
+
+
 	private void envoyerInfos() throws Exception{
 		
 		System.out.println("Le bus "+ num_bus +" envoie ses infos au Serveur.");
@@ -29,7 +31,10 @@ public class Bus implements Runnable{
 		BufferedReader entree = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		
 		
-		sortie.println("BUS;"+num_bus+";"+num_ligne); //Envoi du message
+		sortie.println("BUS;"+num_bus+";"+num_ligne+";"+vitesse+";"+position); //Envoi du message
+		//             data[0]+ data[1]  + data[2]   +   data[3]   + data[4]  
+		
+		
 		String rep=entree.readLine();//Attente de la réponse
 		
 		//TO EDIT RECUPERER LA REPONSE DU SERVEUR CONTENANT LA DECISION DU CONTROLEUR
@@ -38,7 +43,7 @@ public class Bus implements Runnable{
 		if(data[0].equals("OKBUS")){
 			System.out.println("[OK] Infos reçues par le serveur");
 		}
-		if(data[0].equals("NIKTAMER")){
+		if(data[0].equals("CTRL")){
 			System.out.println("Bus à reçu la réponse du controleur");
 		}
 		
