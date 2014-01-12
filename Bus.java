@@ -1,4 +1,15 @@
-//Projet SAR 2013-2014
+/*  
+
+╔══════════════╦════════════════════════════════════════════════════════════╗
+║  ( (         ║						2013-2014							║
+║    ) )	   ║				Université Dauphine Paris 9					║
+║  ........	   ║					Master 1 - MIAGE						║
+║  |      |]   ║			Projet Systèmes & Algorithmes Répartis			║
+║  \      /    ╟────────────────────────────────────────────────────────────╢
+║   `----'     ║	Axel Richier - Thibault Schleret - Guillaume Fronczak   ║
+╚══════════════╩════════════════════════════════════════════════════════════╝
+
+*/
 
 import java.net.*;
 import java.io.*;
@@ -13,7 +24,8 @@ public class Bus extends Thread{
 	private int position;
 	private int num_bus;
 	private int num_ligne;
-	
+	private String AR="";
+	private String arret;
 	private String str="";
 	private Socket soc;
 	private String[] data=null;
@@ -26,10 +38,46 @@ public class Bus extends Thread{
 	private static int delai;
 	private static	ServerSocket s;
 
+
+
+	private synchronized void Avance(){
+		
+			int nbArret=GestiBus.getLigne(num_ligne).nbArret();
+			
+			
+			if((AR.equals("aller") && (position<nbArret))||(AR.equals("terminus"))){
+				position++;
+			}					
+			
+			if(AR.equals("retour")&& (position>0))
+				position--;
+			if (position==nbArret){
+				AR="retour";
+				position--;
+			}
+			if(position==0){
+				AR="terminus";
+			}
+				
+		
+		
+		
+		//position=(position+1) % GestiBus.getLigne(num_ligne).nbArret();
+	
+	}
+
+
+
+
+	public String test ="";
 	
 	public String getPos(){
 	
 		return GestiBus.getLigne(this.num_ligne).getArret(position);
+	}
+	public int getPosInt(){
+	
+		return GestiBus.getBus(this.num_bus).position;
 	}
 	public int getVitesse(){
 	
@@ -48,9 +96,13 @@ public class Bus extends Thread{
 		
 		while(true){
 			
+			
 			Thread.sleep(3000);
+			
+			int vit= GestiBus.getBus(num_bus).getVitesse();
+			int pos= GestiBus.getBus(num_bus).getPosInt();
 			if(GestiBus.debug)
-				System.out.println("Le bus "+ this.num_bus +" envoie ses infos au Serveur :\n BUS;"+num_bus+";"+this.num_ligne+";"+vitesse+";"+position);
+				System.out.println("Le bus "+ this.num_bus +" envoie ses infos au Serveur :\n BUS;"+this.num_bus+";"+this.num_ligne+";"+vit+";"+pos);
 			
 			
 			socket = new Socket("localhost", 6000);
@@ -59,7 +111,7 @@ public class Bus extends Thread{
 			
 			
 			
-			sortie.println("BUS;"+num_bus+";"+num_ligne+";"+vitesse+";"+position); //Envoi du message
+			sortie.println("BUS;"+num_bus+";"+num_ligne+";"+vit+";"+pos); //Envoi du message
 			//             data[0]+ data[1]  + data[2]   +   data[3]   + data[4]  
 			
 			
@@ -110,6 +162,9 @@ public class Bus extends Thread{
 	public void run(){
 		try{
 			
+			
+			
+			
 		/*	BufferedReader entree = new BufferedReader(new InputStreamReader( soc.getInputStream()));
 			PrintWriter sortie = new PrintWriter(soc.getOutputStream(),true);//*/
 					
@@ -136,8 +191,11 @@ public class Bus extends Thread{
 					}
 					
 					if (this.role.equals("main")){
-						
+							
+							//Faire l'avance du bus sur la ligne
+							
 							Thread.sleep(5000);
+							Avance();
 							if(GestiBus.debug)
 								System.out.println("Le bus "+this.num_bus+" avance!");
 					}
@@ -177,6 +235,10 @@ public class Bus extends Thread{
 		this.delai = GestiBus.getDelai();
 		this.num_ligne=num_ligne;
 		this.num_bus=num_bus;
+		AR="aller";
+		this.arret=GestiBus.getLigne(num_ligne).getArret(this.position);
+		//System.out.println(this.getName()+ ": maintest="+this.arret);	
+			
 		en_marche=true;
 		int p=6100+num_bus;
 		

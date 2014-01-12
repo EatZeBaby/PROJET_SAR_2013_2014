@@ -1,4 +1,15 @@
-//Projet SAR 2013-2014
+/*  
+
+╔══════════════╦════════════════════════════════════════════════════════════╗
+║  ( (         ║						2013-2014							║
+║    ) )	   ║				Université Dauphine Paris 9					║
+║  ........	   ║					Master 1 - MIAGE						║
+║  |      |]   ║			Projet Systèmes & Algorithmes Répartis			║
+║  \      /    ╟────────────────────────────────────────────────────────────╢
+║   `----'     ║	Axel Richier - Thibault Schleret - Guillaume Fronczak   ║
+╚══════════════╩════════════════════════════════════════════════════════════╝
+
+*/
 
 import java.net.*;
 import java.io.*;
@@ -15,6 +26,11 @@ public class Ligne{
 	private static ArrayList<Integer> Affectation=new ArrayList<Integer>();
 
 
+
+	public int nbArret(){
+		return ListeDesArrets.size();
+	
+	}
 	public String getArret(int i){
 		return ListeDesArrets.get(i);
 	
@@ -51,6 +67,7 @@ public class Ligne{
 		if(i==1){
 			this.numero=1;
 			ListeDesArrets.add("La Défense");
+			ListeDesArrets.add("Etoile");
 			ListeDesArrets.add("Georges V");
 			ListeDesArrets.add("Palais Royal");
 			ListeDesArrets.add("Bastille");
@@ -69,6 +86,8 @@ public class Ligne{
 			ListeDesArrets.add("Charles De Gaulle - Etoile");
 			ListeDesArrets.add("Dupleix");
 			ListeDesArrets.add("Montparnasse");
+			ListeDesArrets.add("Edgar Quinet");
+			ListeDesArrets.add("Raspail");
 			ListeDesArrets.add("Place d'Italie");
 			ListeDesArrets.add("Nation");
 				}
