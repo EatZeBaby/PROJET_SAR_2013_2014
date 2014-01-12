@@ -1,4 +1,15 @@
-//Projet SAR 2013-2014
+/*  
+
+╔══════════════╦════════════════════════════════════════════════════════════╗
+║  ( (         ║						2013-2014							║
+║    ) )	   ║				Université Dauphine Paris 9					║
+║  ........	   ║					Master 1 - MIAGE						║
+║  |      |]   ║			Projet Systèmes & Algorithmes Répartis			║
+║  \      /    ╟────────────────────────────────────────────────────────────╢
+║   `----'     ║	Axel Richier - Thibault Schleret - Guillaume Fronczak   ║
+╚══════════════╩════════════════════════════════════════════════════════════╝
+
+*/
 
 import java.net.*;
 import java.io.*;
@@ -9,11 +20,44 @@ public class Ligne{
 
 	private int numero;
 	private ArrayList<String> ListeDesArrets  = new ArrayList<String>();
+	private ArrayList<Bus> ListeDesBusSurLigne  = new ArrayList<Bus>();
 	
 	//Tableau d'affectation des lignes
 	private static ArrayList<Integer> Affectation=new ArrayList<Integer>();
 
 
+
+	public int nbArret(){
+		return ListeDesArrets.size();
+	
+	}
+	public String getArret(int i){
+		return ListeDesArrets.get(i);
+	
+	}
+
+	public int nbBusSurLigne(){
+		return this.ListeDesBusSurLigne.size();
+	
+	}
+	
+	public Bus getBus(int i){
+		return this.ListeDesBusSurLigne.get(i);
+	}
+	
+	public int getNumBus(int i){
+		return this.ListeDesBusSurLigne.get(i).getNumBus();
+	}
+
+	public void addBusSurLigne(Bus b){
+		this.ListeDesBusSurLigne.add(b);
+	
+	}
+
+	public int getNumLigne(){
+	
+		return this.numero;
+	}
 
 	public Ligne(int i){
 		//DEBUG
@@ -23,6 +67,7 @@ public class Ligne{
 		if(i==1){
 			this.numero=1;
 			ListeDesArrets.add("La Défense");
+			ListeDesArrets.add("Etoile");
 			ListeDesArrets.add("Georges V");
 			ListeDesArrets.add("Palais Royal");
 			ListeDesArrets.add("Bastille");
@@ -41,12 +86,16 @@ public class Ligne{
 			ListeDesArrets.add("Charles De Gaulle - Etoile");
 			ListeDesArrets.add("Dupleix");
 			ListeDesArrets.add("Montparnasse");
+			ListeDesArrets.add("Edgar Quinet");
+			ListeDesArrets.add("Raspail");
 			ListeDesArrets.add("Place d'Italie");
 			ListeDesArrets.add("Nation");
 				}
 	
 	
 	}
+	
+	
 	
 	public void afficher_ligne(){
 		System.out.println("Ligne " + this.numero);
