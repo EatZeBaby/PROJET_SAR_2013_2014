@@ -7,16 +7,7 @@ import java.rmi.registry.Registry;
 //elhaddad@lamsade.dauphine.fr
 
 public class ThreadClient extends Thread {
-	public static final String RESET = "\u001B[0m";
-	public static final String BLACK = "\u001B[30m";
-	public static final String RED = "\u001B[31m";
-	public static final String GREEN = "\u001B[32m";
-	public static final String YELLOW = "\u001B[33m";
-	public static final String BLUE = "\u001B[34m";
-	public static final String PURPLE = "\u001B[35m";
-	public static final String CYAN = "\u001B[36m";
-	public static final String WHITE = "\u001B[37m";
-
+	
 	private String str="";
 	private String[] data=null;
 	private Socket port;
@@ -28,6 +19,27 @@ public class ThreadClient extends Thread {
 		this.port=port;
 	}
 	
+	private void envoiVersBus(String str,String num_ligne)throws Exception{
+			int ligne = Integer.parseInt(num_ligne); 
+			int response=6100+ligne;
+			
+			Socket socket = new Socket("localhost", response);
+			PrintWriter sortie = new PrintWriter(socket.getOutputStream(),true);
+			BufferedReader entree = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+					
+			
+			//Envoi du message au controleur
+						sortie.println(str);
+			
+			//Attente de la réponse du controleur
+			str=entree.readLine();
+			
+	
+	}
+	
+	
+	
+	
 	private String envoiVersControleur(String str,String num_ligne)throws Exception{
 			
 			int ligne = Integer.parseInt(num_ligne); 
@@ -37,10 +49,11 @@ public class ThreadClient extends Thread {
 				    Registry registry = LocateRegistry.getRegistry(null);
 				    Choix stub = (Choix) registry.lookup("Choix");
 				    int response = stub.getControleur(ligne);
-				    System.out.println("Il faut envoyer au controleur N°" + response);	
+				    		
+				    	System.out.println("Il faut envoyer au controleur N°" + response +" str: "+str);	
 					//RMI FIN//*/
 					
-					//Contacter le controleur retournée par l'appel à getControleur
+					//Contacter le controleur retourné par l'appel à getControleur
 					response=6001+response;
 					Socket socket = new Socket("localhost", response);
 					PrintWriter sortie = new PrintWriter(socket.getOutputStream(),true);
@@ -52,16 +65,18 @@ public class ThreadClient extends Thread {
 					
 					//Attente de la réponse du controleur
 					str=entree.readLine(); 
+					return str;	
+
 					//System.out.println("Sur serveur" + str);
 	
 				} catch (Exception e) {
 				    System.err.println("Client exception: " + e.toString());
 				    e.printStackTrace();
 				}
-			return str;	
-	}
+				return str;	
+				}
 	
-	public void run(){	
+	public void run() {	
 		
 		try{
 	
@@ -79,7 +94,7 @@ public class ThreadClient extends Thread {
 			//SUR RECEPTION DE :  MESSAGE DE GESTIBUS AU LANCEMENT	
 			//if (str.equals("lancé?")){
 			if(data[0].equals("lancé?")){
-				System.out.println("["+GREEN+"OK"+RESET+"] Communication établie avec l'application Gestibus©.");
+				System.out.println("["+Couleur.GREEN+"OK"+Couleur.RESET+"] Communication établie avec l'application GestiBus©.");
 				sortie.println("OK");	
 			}
 			
@@ -88,14 +103,25 @@ public class ThreadClient extends Thread {
 			if(data[0].equals("BUS")){
 				
 				System.out.println("Communication établie avec le bus N°"+ data[1]+" de la ligne "+ data[2]);
+				sortie.println("OKBUS");
 				try{
 					//System.out.println("Transfert des données reçues au contrôleur");
 					String reponse_controleur= envoiVersControleur(str,data[2]);
+					
+					System.out.println("Debug : "+reponse_controleur);
+					
 				
-				
-				//sortie.println("OKBUS");
-					sortie.println(reponse_controleur);
+				    //sortie.println("OKBUS");
+					//sortie.println(reponse_controleur);
 					}catch(Exception e){}
+			}
+			if(data[0].equals("CTRL")){
+				try{
+					
+					envoiVersBus(str,data[2]);
+				}catch(Exception e){}
+
+			
 			}
 			
 		

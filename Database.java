@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 	
-public class Database implements Choix {
+public class Database  extends Thread implements Choix{
 	
 	
 	private static int NB_Lignes;
@@ -43,9 +43,32 @@ public class Database implements Choix {
     	
     	
     }//*/
+    
+    public static ArrayList<Integer> getRepartition(){
+    	return Repartition;
+    }
 
     public Database(){}
-   
+   	
+   /*	public void run(){
+   		NB_Lignes=GestiBus.get_nb_Lignes();
+		NB_Controleurs=GestiBus.get_nb_Controleurs();
+	
+		try {
+		    Database obj = new Database(NB_Lignes,NB_Controleurs);
+		    Choix stub = (Choix) UnicastRemoteObject.exportObject(obj, 0);
+	
+		    // Bind the remote object's stub in the registry
+		    Registry registry = LocateRegistry.getRegistry();
+		    registry.bind("Choix", stub);
+	
+		    System.err.println("Database ready");
+		} catch (Exception e) {
+		    System.err.println("Database exception: " + e.toString());
+		    e.printStackTrace();
+		}
+   		
+   	}//*/
 	
     public static void main(String args[]) {
     	NB_Lignes=GestiBus.get_nb_Lignes();
@@ -64,5 +87,5 @@ public class Database implements Choix {
 	    System.err.println("Database exception: " + e.toString());
 	    e.printStackTrace();
 	}
-    }
+    }//*/
 }

@@ -7,16 +7,35 @@ import java.util.ArrayList;
 
 public class GestiBus{
 
-	private static int NB_Bus=1;
-	private static int NB_Lignes=1;
-	private static int NB_Controleurs=1;
-	
+	private static int NB_Bus=2;
+	private static int NB_Lignes=2;
+	private static int NB_Controleurs=2;
+	private static int delaiEnvoiInfosBus=3000;
 	private static int port_serveur=6000;
 	
 	private static ArrayList<Bus> TousLesBus  = new ArrayList<Bus>();
 	private static ArrayList<Ligne> ToutesLesLignes  = new ArrayList<Ligne>();
 	private static ArrayList<Controleur> TousLesControleurs  = new ArrayList<Controleur>();
 	
+	public static boolean debug=false;
+	
+	
+	
+	public static Controleur get_Controleurs(int i){
+	
+		return TousLesControleurs.get(i);
+	}
+	
+	
+	public static Ligne getLigne(int i){
+		return ToutesLesLignes.get(i);
+	}
+	
+	public static int getNumLigne(int i){
+		
+		return ToutesLesLignes.get(i).getNumLigne();
+	
+	}
 	
 	public static int get_nb_Lignes(){
 		return NB_Lignes;
@@ -36,6 +55,18 @@ public class GestiBus{
 		System.out.println("||"+Couleur.BLUE+"                                        "  +Couleur.RED+"||");
 		System.out.println(" o========================================o"+Couleur.RESET);
 	}
+	
+	public static void demarrage() throws Exception{
+		System.out.print("\nDémarrage Application");
+		Thread.sleep(400);
+		System.out.print(".");
+		Thread.sleep(300);
+		System.out.print(".");
+		Thread.sleep(700);
+		System.out.print(".");
+	
+	}
+	
 	
 	
 
@@ -57,9 +88,11 @@ public class GestiBus{
 	
 	public static void initBus()throws Exception{
 		
+		int cpt=0;
 		int i;
 		for(i=0;i<NB_Bus;i++){
-			TousLesBus.add(new Bus(i));
+			cpt=i%NB_Lignes;
+			TousLesBus.add(new Bus(i,cpt));
 		} 
 		if(TousLesBus.size()==NB_Bus){
 			System.out.println("["+Couleur.GREEN+"OK"+Couleur.RESET+"] Création des "+NB_Bus+" bus.");
@@ -113,16 +146,22 @@ public class GestiBus{
 		for(int i=0; i<NB_Bus;i++){
 			
 			cpt=i%NB_Lignes;
+			
 			TousLesBus.get(i).surLigne(cpt);
 		}
 	
 	}
 	
 	
+	
+	public static int getDelai(){
+	
+		return delaiEnvoiInfosBus;
+	}
 	public static void lancerBus(){
 		for(int i=0;i<NB_Bus;i++){
-			TousLesBus.get(i).proc.start();
-			
+			//TousLesBus.get(i).proc.start();
+			TousLesBus.get(i).depart();
 		}
 		
 	
@@ -160,23 +199,39 @@ public class GestiBus{
 	
 	public static void main(String[] args) throws Exception{
 		
-		ecranAccueil();
-		verifServeur();
-		initBus();
-		initLigne();
-		initControleur();
 		
-		Database database=new Database(NB_Lignes,NB_Controleurs);
-		
-		affecterBus();
-			
-			
-			
-			
-		lancerControleurs();
-		lancerBus();
+		if(args[0].equals("debug"))
+			debug=true;
+		else if(args[0].equals("normal"))
+			debug=false;
+
 		try
 			 {
+			 	ecranAccueil();
+				verifServeur();
+				Thread.sleep(500);
+				initBus();
+				Thread.sleep(500);
+				initLigne();
+				Thread.sleep(500);
+				initControleur();
+				Thread.sleep(500);
+				demarrage();
+				
+				Database database=new Database(NB_Lignes,NB_Controleurs);
+				//database.start();
+				affecterBus();
+				lancerControleurs();
+				lancerBus();
+				
+				
+				if(!debug){
+					Thread.sleep(900);
+					Affichage affich= new Affichage(0);
+					Affichage listen= new Affichage(1);
+					affich.start();
+					listen.start();
+				}
 				Thread.sleep(10000);
 				
 			 }
@@ -186,8 +241,9 @@ public class GestiBus{
 			
 				
 			 }
-		terminerBus();
-		terminerControleurs();
+			 
+				terminerBus();
+		//terminerControleurs();
 	
 	
 	}

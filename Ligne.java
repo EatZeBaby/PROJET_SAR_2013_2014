@@ -9,11 +9,39 @@ public class Ligne{
 
 	private int numero;
 	private ArrayList<String> ListeDesArrets  = new ArrayList<String>();
+	private ArrayList<Bus> ListeDesBusSurLigne  = new ArrayList<Bus>();
 	
 	//Tableau d'affectation des lignes
 	private static ArrayList<Integer> Affectation=new ArrayList<Integer>();
 
 
+	public String getArret(int i){
+		return ListeDesArrets.get(i);
+	
+	}
+
+	public int nbBusSurLigne(){
+		return this.ListeDesBusSurLigne.size();
+	
+	}
+	
+	public Bus getBus(int i){
+		return this.ListeDesBusSurLigne.get(i);
+	}
+	
+	public int getNumBus(int i){
+		return this.ListeDesBusSurLigne.get(i).getNumBus();
+	}
+
+	public void addBusSurLigne(Bus b){
+		this.ListeDesBusSurLigne.add(b);
+	
+	}
+
+	public int getNumLigne(){
+	
+		return this.numero;
+	}
 
 	public Ligne(int i){
 		//DEBUG
@@ -47,6 +75,8 @@ public class Ligne{
 	
 	
 	}
+	
+	
 	
 	public void afficher_ligne(){
 		System.out.println("Ligne " + this.numero);
