@@ -1,4 +1,15 @@
-//Projet SAR 2013-2014
+/*  
+
+╔══════════════╦════════════════════════════════════════════════════════════╗
+║  ( (         ║						2013-2014							║
+║    ) )	   ║				Université Dauphine Paris 9					║
+║  ........	   ║					Master 1 - MIAGE						║
+║  |      |]   ║			Projet Systèmes & Algorithmes Répartis			║
+║  \      /    ╟────────────────────────────────────────────────────────────╢
+║   `----'     ║	Axel Richier - Thibault Schleret - Guillaume Fronczak   ║
+╚══════════════╩════════════════════════════════════════════════════════════╝
+
+*/
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;

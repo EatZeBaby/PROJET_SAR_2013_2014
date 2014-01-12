@@ -1,4 +1,15 @@
+/*  
 
+╔══════════════╦════════════════════════════════════════════════════════════╗
+║  ( (         ║						2013-2014							║
+║    ) )	   ║				Université Dauphine Paris 9					║
+║  ........	   ║					Master 1 - MIAGE						║
+║  |      |]   ║			Projet Systèmes & Algorithmes Répartis			║
+║  \      /    ╟────────────────────────────────────────────────────────────╢
+║   `----'     ║	Axel Richier - Thibault Schleret - Guillaume Fronczak   ║
+╚══════════════╩════════════════════════════════════════════════════════════╝
+
+*/
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
