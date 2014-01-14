@@ -19,7 +19,7 @@ public class Controleur implements Runnable{
 	
 	public Thread proc = new Thread(this); //Creation du thread
 	private String nom;
-	private String decision;
+	
 	private String str="";
 	private int num;
 	private String[] data=null;
@@ -105,13 +105,31 @@ public class Controleur implements Runnable{
 				data[3] : vitesse
 				data[4] : position */
 				
-				decision="stop";
+				
 				//Traitement des infos
-				if (data[3]== "30")
-					decision=decision+"Nouvelle_vitesse";
-				//etc...
-
+				String etat="";
+				String decision="";
+				
+				int vit = Integer.parseInt(data[3]); 
+				
+				
+				if ((vit>=0)&&(vit<11))
+					etat="critique";
+				if ((vit>=11)&&(vit<31))
+					etat="probleme";
+				if ((vit>=31)&&(vit<51))
+					etat="normal";
+				
+				
+				if (etat.equals("critique")){
+					decision="pos++;40";
+					GestiBus.getLigne(Integer.parseInt(data[2])).getBus(Integer.parseInt(data[1])).set_vitesse(40);
+				}
+				
 				sortie.println("CTRL;"+decision);
+				//decision="" : rien à faire
+				//sinon decision="CTRL;pos++;vitesse 40
+				
 				//System.out.println("Message envoyé");
 				
 			}

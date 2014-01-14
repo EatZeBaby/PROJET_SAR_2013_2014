@@ -104,7 +104,7 @@ public class Bus extends Thread{
 		while(true){
 			
 			
-			Thread.sleep(3000);
+			Thread.sleep(10000);
 			
 			int vit= GestiBus.getBus(num_bus).getVitesse();
 			int pos= GestiBus.getBus(num_bus).getPosInt();
@@ -157,6 +157,11 @@ public class Bus extends Thread{
 		String[] data_recues=str.split(delims);	
 		if(GestiBus.debug)	
 			System.out.println("recevoirOrdres : Ordre reçu : " + data_recues[1]);
+		
+		if (data_recues.length>0){
+			this.position++;	
+			this.vitesse=Integer.parseInt(data[2]);
+		}
 
 	}
 	
