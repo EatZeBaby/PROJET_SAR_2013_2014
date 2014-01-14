@@ -103,12 +103,13 @@ public class Affichage extends Thread{
 				Events e=Events.get_event(i);
 				String ind="";;
 				if(e.get_type().equals("panne")){
-					if(i==1)
+					if(i==0)
 						ind="P";
-					if(i==1)
-						ind="B";
+					
 					System.out.println("["+ind+"]"+e.get_type()+" sur bus "+e.get_num_bus()+"" );}
 				if(e.get_type().equals("bouchon"))
+					if(i==1)
+						ind="B";
 					System.out.println("["+ind+"]"+e.get_type()+" sur arret "+ GestiBus.getLigne(e.get_num_ligne()).getArret(e.get_num_arret())+" de la ligne "+e.get_num_ligne()+"." );
 			}
 			
@@ -155,11 +156,11 @@ public class Affichage extends Thread{
 				System.out.println();
 			
 			}
-			modifBus();
+			
 			
 		}
 		
-		
+		//modifBus();
 	
 	}
 	private void MenuPrincipal(){
