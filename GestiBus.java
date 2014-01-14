@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class GestiBus{
 
-	private static int NB_Bus=25;
+	private static int NB_Bus=13;
 	private static int NB_Lignes=5;
 	private static int NB_Controleurs=3;
 	private static int delaiEnvoiInfosBus=3000;
@@ -41,6 +41,10 @@ public class GestiBus{
 	public static Bus getBus(int i){
 	
 		return TousLesBus.get(i);
+	}
+	public static int get_nb_Bus(){
+	
+		return TousLesBus.size();
 	}
 
 
@@ -345,7 +349,7 @@ public class GestiBus{
 	
 	private static void initEvents(){
 		Events panne=new Events("panne",0);
-		Events panne2=new Events("panne",1);
+		//Events panne2=new Events("panne",1);
 		Events bouchon=new Events("bouchon",4,3);
 			
 	}

@@ -29,6 +29,31 @@ public class Affichage extends Thread{
 			this.role="listen";
 	}
 	
+	private void modifBus(){
+		
+		
+		String input="";
+		
+		System.out.print("Enrez le N° du Bus à modifier");
+		Console console = System.console();
+		input = console.readLine();
+		
+		int n= Integer.parseInt(input); 
+		
+		do{
+			GestiBus.ecranAccueil();
+			Menu();
+			
+			System.out.println("Vous souhaitez modifier le bus :" +n );
+			
+			
+			input = console.readLine();
+			
+		}while(!input.equals("OK"));
+		
+	}
+	
+	
 	private void Menu(){
 		System.out.println(Couleur.BLUE+"["+Couleur.PURPLE+"M"+Couleur.BLUE+"]enu Principal | "+Couleur.BLUE+"["+Couleur.PURPLE+"C"+Couleur.BLUE+"]ontroleurs | "+Couleur.BLUE+"["+Couleur.PURPLE+"E"+Couleur.BLUE+"]venements ");
 		System.out.println("============================================="+Couleur.RESET);
@@ -51,10 +76,20 @@ public class Affichage extends Thread{
 			if (etat.equals("events")){
 				affichEvents();
 			}
-
+			
 		
 		}
 	
+	
+	}
+	
+	private void retourMenu(){
+		String input="";
+		Console console = System.console();
+		
+		System.out.print("Retour Au Menu Principal? [O/N]")	;
+		
+		input = console.readLine();
 	
 	}
 	private void affichEvents(){
@@ -66,9 +101,13 @@ public class Affichage extends Thread{
 			
 			for(int i = 0 ; i < nb_events ; i++){
 				Events e=Events.get_event(i);
-				int ind=i+1;
-				if(e.get_type().equals("panne"))
-					System.out.println("["+ind+"]"+e.get_type()+" sur bus "+e.get_num_bus()+"" );
+				String ind="";;
+				if(e.get_type().equals("panne")){
+					if(i==1)
+						ind="P";
+					if(i==1)
+						ind="B";
+					System.out.println("["+ind+"]"+e.get_type()+" sur bus "+e.get_num_bus()+"" );}
 				if(e.get_type().equals("bouchon"))
 					System.out.println("["+ind+"]"+e.get_type()+" sur arret "+ GestiBus.getLigne(e.get_num_ligne()).getArret(e.get_num_arret())+" de la ligne "+e.get_num_ligne()+"." );
 			}
@@ -107,10 +146,17 @@ public class Affichage extends Thread{
 				num_ligne=GestiBus.getNumLigne(ctrl.bus_a_charge(j));
 								
 				System.out.println("    Ligne n°"+num_ligne+"" );
+				System.out.println("    ───────────────────" );
+				
+					for(int k=0; k< GestiBus.getLigne(num_ligne-1).nbBusSurLigne();k++){
+						System.out.println("        Bus n°"+GestiBus.getLigne(num_ligne-1).getNumBus(k) );
+					
+					}
+				System.out.println();
 			
 			}
+			modifBus();
 			
-		
 		}
 		
 		
@@ -169,16 +215,25 @@ public class Affichage extends Thread{
 				etat="menu_principal";
 			if (input.equals("E"))
 				etat="events";
-			if (input.equals("1"))
+			if (input.equals("P")){
 				Events.get_event(0).start();
-			if (input.equals("2"))
-				Events.get_event(1).start();
+				etat="menu_principal";
+			}
+			if (input.equals("B")){
+				Events.get_event(0).start();
+				etat="menu_principal";
+			}
+				
+			
+				 //*/
+			}
+		}
+			
 			
 
 							
-		}//*/	
-	
-	}
+
+
 	
 	public void run(){
 		

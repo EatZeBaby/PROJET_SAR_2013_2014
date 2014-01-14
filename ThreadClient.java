@@ -62,7 +62,7 @@ public class ThreadClient extends Thread {
 				    Choix stub = (Choix) registry.lookup("Choix");
 				    int response = stub.getControleur(ligne);
 				    		
-				    	System.out.println("Il faut envoyer au controleur N°" + response +" str: "+str);	
+				    	//System.out.println("Il faut envoyer au controleur N°" + response +" str: "+str);	
 					//RMI FIN//*/
 					
 					//Contacter le controleur retourné par l'appel à getControleur
@@ -114,13 +114,13 @@ public class ThreadClient extends Thread {
 			//if (str.equals("INFOS")){
 			if(data[0].equals("BUS")){
 				
-				System.out.println("Communication établie avec le bus N°"+ data[1]+" de la ligne "+ data[2]);
-				sortie.println("OKBUS");
+				//System.out.println("Communication établie avec le bus N°"+ data[1]+" de la ligne "+ data[2]);
+				//sortie.println("OKBUS");
 				try{
 					//System.out.println("Transfert des données reçues au contrôleur");
 					String reponse_controleur= envoiVersControleur(str,data[2]);
 					
-					System.out.println("Debug : "+reponse_controleur);
+					//System.out.println("Debug : "+reponse_controleur);
 					
 				
 				    //sortie.println("OKBUS");
